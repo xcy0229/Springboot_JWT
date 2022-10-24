@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+    <script src="js/jquery-3.6.0.min.js"  ></script>
+</head>
+<body>
+<form   method="post">
+    用户名：<input type="text" class="custName" name="custName"><br>
+    密码：<input type="password" class="custPassword" name="custPassword"><br>
+    <input type="button" class="loginBtn" value="登录">
+</form>
+</body>
+<script>
+    $(".loginBtn").click(function (){
+        $.ajax({
+            type:"post",
+            url:"counmt/login",
+            data:{
+                custName:$(".custName").val(),
+                custPassword:$(".custPassword").val()
+            },
+            success:function (result){
+                console.log("result:" + result);
+                //保存信息到本地，里面都 token
+                // var token = JSON.stringify(result.data);
+                // console.log("token:" + token);
+                var token = result.data;
+                console.log(token);
+
+                localStorage.setItem("token",token);
+                window.location.href = "index.html";
+            }
+        })
+    })
+</script>
+</html>
